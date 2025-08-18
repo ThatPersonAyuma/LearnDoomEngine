@@ -2,6 +2,28 @@
 #include <stdlib.h>
 #include "r_bsp.h"
 
+/**
+ * @brief Saving an object treat it as a bit
+ * 
+ * This function take a pointer to BSP Node object
+ * 
+ * @param node The pointer/address to the BSPNde object.
+ * @return void.
+ */
+void OpenFile(BSPNode* node){
+    // Saving an object
+    FILE *my_file = fopen("C:\\Homework\\Belajar\\LearnC\\project\\doom_engine\\resource\\item", "wb");
+    if (my_file==NULL){
+        printf("Error to open file\n");
+        return;
+    }
+    int num = 123456;
+    fwrite(&num, sizeof(int), 1, my_file);
+    fclose(my_file);
+    printf("Success to save\n");
+    // fwrite(&p1, sizeof(Product), 1, file_ptr);
+}
+
 enum Objects{
     A,
     B,
@@ -114,6 +136,7 @@ int main(){
     BSPNode* root = CreateBSPTree(segmens, 3);
     char order[4] = {'\0', '\0', '\0', '\0'};
     int count = 0;
+    OpenFile(root);
     findOrder(root, pos, &(order[0]), &count);
     for (int i=0; i<4;i++){
         printf("\n%c",order[i]);
